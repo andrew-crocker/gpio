@@ -33,10 +33,31 @@
 #include <stdio.h>
 
 int output_pins[]={PIN4, PIN5, PIN6};
+int output_pins2[] = {PIN5, PIN6, PIN7};
 int input_pin = PIN13;
 int i;
 int c;
-int j; 
+int j;
+
+ /* Function to continuously blink 3 LEDs attached to digital pins 5, 6, and 7 of the Galileo */
+void all_blink() {
+	// set PIN5, PIN6, and PIN7 to Output
+	for (i = 0; i < sizeof(output_pins2) / sizeof(int); ++i) {
+		if (setGPIO_Out(output_pins2[i]))
+			exit(1);
+	}
+
+	// Continuously write to pins
+	i = 0;
+	while (1) {
+		GPIO_Write(PIN5, (i+0)%3);
+		GPIO_Write(PIN6, (i+1)%3);
+		GPIO_Write(PIN7, (i+2)%3);
+		sleep(1);
+		++i;
+	}
+
+}
 
  /* Function to turn RBG sensor to change its color to Red, Blue and Green if reading 1 from input_pin */
 void blink_all_lights() {
@@ -48,7 +69,6 @@ void blink_all_lights() {
       exit(1);
 
   // Continuously write to pins
-  int i;
   i = 0;
   while (1) {
     if ((GPIO_Read(input_pin)) == 1) {
