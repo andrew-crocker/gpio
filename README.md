@@ -7,6 +7,7 @@ This library was written partially by Patrick Holmes of Intel.
 I expanded Patrick's code to give full input/output support for all 14 gpio pins on the Galileo.
 
 USAGE:
+
   int SetGPIO_Out(int pin);
       --initializes pin for output.
         <pin> refers to the pin being written to.
