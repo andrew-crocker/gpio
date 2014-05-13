@@ -38,7 +38,7 @@ int i;
 int c;
 int j; 
 
-/* /\* Function to turn RBG sensor to change its color to Red, Blue and Green *\/ */
+ /* Function to turn RBG sensor to change its color to Red, Blue and Green if reading 1 from input_pin */
 void blink_all_lights() {
   // set PIN4, PIN5, and PIN6 to Output
   for (i=0;i<(sizeof(output_pins) / sizeof(int));i++)
@@ -55,7 +55,7 @@ void blink_all_lights() {
       GPIO_Write(PIN4, (i+0)%3);
       GPIO_Write(PIN5, (i+1)%3);
       GPIO_Write(PIN6, (i+2)%3);
-      sleep(1);
+      // sleep(1);
       ++i;
     }
     else {
@@ -66,39 +66,39 @@ void blink_all_lights() {
   }
 }
 
-/* /\* Function to blink Red LED in 1 second intervals. *\/ */
-/* void blink_light() { */
-/*   // set PIN4 to Output */
-/*   if (setGPIO_In(output_pins[0])) { */
-/*     exit(1); */
-/*   } */
+ /* Function to blink Red LED in 1 second intervals. */ 
+ void blink_light() { 
+   // set PIN4 to Output 
+   if (setGPIO_Out(PIN4)) { 
+     exit(1); 
+   } 
 
-/*   // Continuously write to pin */
-/*   int i; */
-/*   i = 0; */
-/*   while (1) { */
-/*     GPIO_Write(PIN4, 1); */
-/*     sleep(1); */
-/*     GPIO_Write(PIN4, 0); */
-/*     sleep(1); */
-/*     ++i; */
-/*   } */
-/* } */
+   // Continuously write to pin 
+   int i; 
+   i = 0; 
+   while (1) { 
+     GPIO_Write(PIN4, 1); 
+     sleep(1); 
+     GPIO_Write(PIN4, 0); 
+     sleep(1); 
+     ++i; 
+   } 
+ }
 
-/* /\* Function to read from pin *\/ */
-/* void read_from_pin() { */
-/*   // set PIN7 to Input */
-/*   if (setGPIO_In(output_pins[3])) { */
-/*     exit(1); */
-/*   } */
+ /* Function to read from pin */ 
+ void read_from_pin() { 
+   // set PIN7 to Input 
+   if (setGPIO_In(input_pin)) { 
+     exit(1); 
+   } 
 
-/*   while (1) { */
-/*     // continuously read value */
-/*     printf("Value: %d\n", GPIO_Read(input_pin)); */
-/*     //sleep(1); */
-/*   } */
+   while (1) { 
+     // continuously read value 
+     printf("Value: %d\n", GPIO_Read(input_pin)); 
+     //sleep(1); 
+   } 
 
-/* } */
+ } 
 
 int main() {
 
