@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include "gpio.h"
 
-#define VALID_PINS PIN0, PIN1, PIN2, PIN3, PIN4, PIN5, PIN6, PIN7, PIN8, PIN9, PIN10, PIN11, PIN12, PIN13
+#define VALID_PINS D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13
 
 int setGPIO_Out(int pin)
 {	

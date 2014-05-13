@@ -32,36 +32,34 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int output_pins[]={PIN4, PIN5, PIN6};
-int output_pins2[] = {PIN5, PIN6, PIN7};
-int input_pin = PIN13;
+int output_pins[] = {D0, D1, D2};
+int input_pin = D13;
 int i;
 int c;
 int j;
 
- /* Function to continuously blink 3 LEDs attached to digital pins 5, 6, and 7 of the Galileo */
+ /* Continuously blinks 3 LEDs attached to digital pins in output_pins[] on the Galileo */
 void all_blink() {
-	// set PIN5, PIN6, and PIN7 to Output
-	for (i = 0; i < sizeof(output_pins2) / sizeof(int); ++i) {
-		if (setGPIO_Out(output_pins2[i]))
+	// set output_pins to Output
+	for (i = 0; i < sizeof(output_pins) / sizeof(int); ++i) {
+		if (setGPIO_Out(output_pins[i]))
 			exit(1);
 	}
 
 	// Continuously write to pins
 	i = 0;
 	while (1) {
-		GPIO_Write(PIN5, (i+0)%3);
-		GPIO_Write(PIN6, (i+1)%3);
-		GPIO_Write(PIN7, (i+2)%3);
+		GPIO_Write(output_pins[0], (i+0)%3);
+		GPIO_Write(output_pins[1], (i+1)%3);
+		GPIO_Write(output_pins[2], (i+2)%3);
 		sleep(1);
 		++i;
 	}
-
 }
 
  /* Function to turn RBG sensor to change its color to Red, Blue and Green if reading 1 from input_pin */
-void blink_all_lights() {
-  // set PIN4, PIN5, and PIN6 to Output
+void all_blink_with_switch() {
+  // set output_pins to Output
   for (i=0;i<(sizeof(output_pins) / sizeof(int));i++)
     if (setGPIO_Out(output_pins[i]))
       exit(1);
@@ -72,24 +70,24 @@ void blink_all_lights() {
   i = 0;
   while (1) {
     if ((GPIO_Read(input_pin)) == 1) {
-      GPIO_Write(PIN4, (i+0)%3);
-      GPIO_Write(PIN5, (i+1)%3);
-      GPIO_Write(PIN6, (i+2)%3);
+      GPIO_Write(output_pins[0], (i+0)%3);
+      GPIO_Write(output_pins[1], (i+1)%3);
+      GPIO_Write(output_pins[2], (i+2)%3);
       // sleep(1);
       ++i;
     }
     else {
-      GPIO_Write(PIN4, 0);
-      GPIO_Write(PIN5, 0);
-      GPIO_Write(PIN6, 0);
+      GPIO_Write(output_pins[0], 0);
+      GPIO_Write(output_pins[1], 0);
+      GPIO_Write(output_pins[2], 0);
     }
   }
 }
 
  /* Function to blink Red LED in 1 second intervals. */ 
- void blink_light() { 
-   // set PIN4 to Output 
-   if (setGPIO_Out(PIN4)) { 
+ void blink_light(int pin) { 
+   // set output_pin[0] to Output 
+   if (setGPIO_Out(pin)) { 
      exit(1); 
    } 
 
@@ -97,24 +95,24 @@ void blink_all_lights() {
    int i; 
    i = 0; 
    while (1) { 
-     GPIO_Write(PIN4, 1); 
+     GPIO_Write(pin, 1); 
      sleep(1); 
-     GPIO_Write(PIN4, 0); 
+     GPIO_Write(pin, 0); 
      sleep(1); 
      ++i; 
    } 
  }
 
  /* Function to read from pin */ 
- void read_from_pin() { 
-   // set PIN7 to Input 
-   if (setGPIO_In(input_pin)) { 
+ void read_pin(int pin) { 
+   // set D7 to Input 
+   if (setGPIO_In(pin)) { 
      exit(1); 
    } 
 
    while (1) { 
      // continuously read value 
-     printf("Value: %d\n", GPIO_Read(input_pin)); 
+     printf("Value: %d\n", GPIO_Read(pin)); 
      //sleep(1); 
    } 
 
@@ -122,11 +120,15 @@ void blink_all_lights() {
 
 int main() {
 
-  /* Example Read from PIN4 */
-  // read_from_pin();
+  /* Example Read from D4 */
+  // read_pin(input_pin);
 
   /* Example Write to pins */
-  blink_all_lights();
+  // blink_light(output_pins[0]);
+  // all_blink();
+
+  /* Example Read and Write to pins */
+  all_blink_with_switch();
 
   return 0;
 }

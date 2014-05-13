@@ -31,22 +31,31 @@ extern int GPIO_Write(int, int);
 extern int GPIO_Read(int);
 extern int unsetGPIO(int);
 
-/* The following PIN# maps to sysfs gpio pin numbers */
+/* The following D# maps to sysfs gpio pin numbers */
 //currently only pin4 thru pin8 have been validated
-#define PIN4 28
-#define PIN5 17
-#define PIN6 24
-#define PIN7 27
-#define PIN8 26
+#define D4 28
+#define D5 17
+#define D6 24
+#define D7 27
+#define D8 26
 
-//These ones also work, apparently.
-#define PIN0 50
-#define PIN1 51
-#define PIN2 32
-#define PIN3 18
+//However, the rest of the digital pins also work, apparently.
+#define D0 50
+#define D1 51
+#define D2 32
+#define D3 18
 
-#define PIN9 19
-#define PIN10 16
-#define PIN11 25
-#define PIN12 38
-#define PIN13 39
+#define D9 19
+#define D10 16
+#define D11 25
+#define D12 38
+#define D13 39
+
+/* The following A# maps to sysfs gpio pin numbers */
+//These are meant for the 6 analog pins on the Galileo
+#define A0 37
+#define A1 36
+#define A2 23
+#define A3 22
+#define A4 21
+#define A5 20
