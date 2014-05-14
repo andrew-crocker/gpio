@@ -105,7 +105,7 @@ void all_blink_with_switch() {
 
  /* Function to read from pin */ 
  void read_pin(int pin) { 
-   // set D7 to Input 
+   // set pin to Input 
    if (setGPIO_In(pin)) { 
      exit(1); 
    } 
@@ -120,7 +120,7 @@ void all_blink_with_switch() {
 
 int main() {
 
-  /* Example Read from D4 */
+  /* Example Read from input_pin */
   // read_pin(input_pin);
 
   /* Example Write to pins */
